@@ -1,7 +1,7 @@
 extends layouts/main-layout.pug 
 block content
         main
-            if prods.length > 0
+            if hasProducts
                 .grid
                     each product in prods
                         article.card.product-item

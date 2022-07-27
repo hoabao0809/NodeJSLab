@@ -12,7 +12,14 @@ router.get('/', (req, res, next) => {
 
   const products = adminData.products;
 
-  res.render('shop', { prods: products, pageTitle: 'Shop', path: '/' }); //cấu hình pug tự động tìm file .pug
+  res.render('shop', {
+    prods: products,
+    pageTitle: 'Shop',
+    path: '/',
+    hasProducts: products.length > 0,
+    activeShop: true,
+    productCSS: true,
+  }); //cấu hình pug tự động tìm file .pug
 });
 
 module.exports = router;
