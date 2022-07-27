@@ -10,9 +10,9 @@ router.get('/', (req, res, next) => {
   // console.log(adminData.products);
   // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
 
-  const products = adminData.products
+  const products = adminData.products;
 
-  res.render('shop', {prods: products, docTitle: 'Shop'}); //cấu hình pug tự động tìm file .pug
+  res.render('shop', { prods: products, pageTitle: 'Shop', path: '/' }); //cấu hình pug tự động tìm file .pug
 });
 
 module.exports = router;
