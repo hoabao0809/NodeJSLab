@@ -3,8 +3,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-app.set('view engine', 'pug')
-app.set('views', 'views')
+app.set('view engine', 'pug');
+app.set('views', 'views');
 
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -16,7 +16,9 @@ app.use('/admin', adminData.router);
 app.use(shopRoutes);
 
 app.use((req, res, next) => {
-  res.sendFile(path.join(__dirname, 'views', '404.html'));
+  res.status(404).render('404', { pageTitle: 'Page Not Found' });
+
+  // res.sendFile(path.join(__dirname, 'views', '404.html'));
 });
 
 // const server = http.createServer(app);
