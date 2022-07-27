@@ -23,14 +23,14 @@ exports.getProducts = (req, res, next) => {
   // console.log(adminData.products);
   // res.sendFile(path.join(rootDir, 'views', 'shop.html'));
 
-  const products = Product.fetchAll();
-
-  res.render('shop', {
-    prods: products,
-    pageTitle: 'Shop',
-    path: '/',
-    hasProducts: products.length > 0,
-    activeShop: true,
-    productCSS: true,
-  }); //cấu hình pug tự động tìm file .pug
+  Product.fetchAll((products) => {
+    res.render('shop', {
+      prods: products,
+      pageTitle: 'Shop',
+      path: '/',
+      hasProducts: products.length > 0,
+      activeShop: true,
+      productCSS: true,
+    }); //cấu hình pug tự động tìm file .pug
+  });
 };
