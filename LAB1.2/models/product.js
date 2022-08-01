@@ -10,7 +10,13 @@ module.exports = class Product {
     this.price = _price;
   }
 
-  save() {}
+  save() {
+    return db.execute(
+      'INSERT INTO products(title, price, imageUrl, description) VALUES (?,?,?,?)',
+      [this.title, this.price, this.imageUrl, this.description]
+    );
+    // NHằm tránh SQL injection
+  }
 
   static deleteById(id) {}
 
