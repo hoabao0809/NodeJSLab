@@ -1,21 +1,15 @@
-// ===== MySQL configuration set-up
-// const mysql = require('mysql2');
+const mongodb = require('mongodb');
+const MongoClient = mongodb.MongoClient;
 
-// const pool = mysql.createPool({
-//   host: 'localhost',
-//   user: 'root',
-//   database: 'node-complete',
-//   password: 'admin1234',
-// });
+const mongoConnect = (callback) => {
+  MongoClient.connect(
+    'mongodb+srv://hoabao0809:admin1234@cluster0.wxy42.mongodb.net/?retryWrites=true&w=majority'
+  )
+    .then((client) => {
+      console.log('Connected');
+      callback(client);
+    })
+    .catch((err) => console.log(err));
+};
 
-// module.exports = pool.promise()
-
-// =========sequelize set-up
-const Sequelize = require('sequelize');
-
-const sequelize = new Sequelize('node-complete', 'root', 'admin1234', {
-  dialect: 'mysql',
-  host: 'localhost',
-});
-
-module.exports = sequelize;
+module.exports = mongoConnect;
