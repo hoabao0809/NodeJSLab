@@ -1,4 +1,4 @@
-const path = require('path')
+const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -31,7 +31,7 @@ app.use('/admin', adminRoutes);
 
 app.use(errorController.get404);
 
-mongoConnect((client) => {
+mongoConnect(() => {
   console.log(client);
-  app.listen(3000)
+  app.listen(3000);
 });
