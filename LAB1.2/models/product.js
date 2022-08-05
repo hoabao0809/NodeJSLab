@@ -1,3 +1,4 @@
+const mongodb = require('mongodb');
 const getDb = require('../util/database').getDb;
 
 class Product {
@@ -13,10 +14,10 @@ class Product {
     return db
       .collection('products')
       .insertOne(this)
-      .then(result => {
+      .then((result) => {
         console.log(result);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -27,13 +28,26 @@ class Product {
       .collection('products')
       .find()
       .toArray()
-      .then(products => {
+      .then((products) => {
         console.log(products);
-        return products; 
+        return products;
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
+  }
+
+  static findById(proId) {
+    const db = getDb();
+    return db
+      .collection('products')
+      .find({ _id: mongodb.ObjectId(proId) }) // vì mongoDb lưu data dưới dạng Bson nên cần import mongodb và convert proId into ObjectId(...)
+      .next()
+      .then((product) => {
+        console.log(product);
+        return product;
+      })
+      .catch((err) => console.log(err));
   }
 }
 
