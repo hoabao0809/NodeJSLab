@@ -98,6 +98,9 @@ exports.postOrder = async (req, res, next) => {
     return order
       .save()
       .then((result) => {
+        return req.user.clearCart();
+      })
+      .then((result) => {
         res.redirect('/orders');
       })
       .catch((err) => err);
