@@ -8,7 +8,10 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=10');
+  req.session.isLoggedIn = true
+
+  // res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=10');
+  
   // Some pair keys: 
   // ['Expires= '; 
     // 'Max-Age= number in seconds'; 
