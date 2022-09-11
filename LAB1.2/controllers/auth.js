@@ -1,18 +1,23 @@
 const User = require('../models/user');
 
 exports.getLogin = (req, res, next) => {
-  // const isLoggedIn = req.get('Cookie').split('=')[1] === 'true';
-
-  const isLoggedIn = req.session.isLoggedIn;
   res.render('auth/login', {
     path: '/login',
     pageTitle: 'Login',
-    isAuthenticated: isLoggedIn,
+    isAuthenticated: false,
+  });
+};
+
+exports.getSignup = (req, res, next) => {
+  res.render('auth/signup', {
+    path: '/signup',
+    pageTitle: 'Signup',
+    isAuthenticated: false,
   });
 };
 
 exports.postLogin = (req, res, next) => {
-  User.findById('62ef3645c0c4d3fc645dffe0')
+  User.findById('5bab316ce0a7c75f783cb8a8')
     .then((user) => {
       req.session.isLoggedIn = true;
       req.session.user = user;
@@ -22,14 +27,31 @@ exports.postLogin = (req, res, next) => {
       });
     })
     .catch((err) => console.log(err));
+};
 
-  // res.setHeader('Set-Cookie', 'loggedIn=true; Max-Age=10');
+exports.postSignup = (req, res, next) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const confirmPassword = req.body.confirmPassword;
 
-  // Some pair keys:
-  // ['Expires= ';
-  // 'Max-Age= number in seconds';
-  // 'Domain= to which cookies should be sent; 'Secure (cookie only be set if page is served via Https);
-  // HttpOnly: cookie values cant be accessed via client side JS script => avoiding cross-site scripting attacks]
+  User.findOne({ email })
+    .then((userDoc) => {
+      if (userDoc) {
+        return res.redirect('/signup');
+      }
+      const user = new User({
+        email,
+        password,
+        cart: { items: [] },
+      });
+      return user.save();
+    })
+    .then((result) => {
+      res.redirect('/login');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 
 exports.postLogout = (req, res, next) => {
