@@ -15,10 +15,7 @@ router.get('/signup', authController.getSignup);
 router.post(
   '/login',
   [
-    body('email')
-      .isEmail()
-      .withMessage('Please enter a valid email')
-      .normalizeEmail(),
+    body('email').isEmail().withMessage('Please enter a valid email'),
     body('password', 'Password has to be valid.')
       .isLength({ min: 5 })
       .isAlphanumeric()
@@ -38,13 +35,11 @@ router.post(
         //   throw new Error('This email address is forbidden.');
         // }
         // return true;
-        return User.findOne({ email: value })
-          .then((userDoc) => {
-            if (userDoc) {
-              return Promise.reject('Email exists');
-            }
-          })
-          .normalizeEmail();
+        return User.findOne({ email: value }).then((userDoc) => {
+          if (userDoc) {
+            return Promise.reject('Email exists');
+          }
+        });
       }),
     body(
       'password',
