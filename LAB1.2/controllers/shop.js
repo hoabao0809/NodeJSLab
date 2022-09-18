@@ -18,7 +18,7 @@ exports.getProducts = (req, res, next) => {
       totalItems = numProducts;
       return Product.find()
         .skip((page - 1) * ITEMS_PER_PAGE)
-        .limit(ITEMS_PER_PAGE);
+        .limit(ITEMS_PER_PAGE); 
     })
     .then(products => {
       res.render('shop/product-list', {
