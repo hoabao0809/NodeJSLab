@@ -31,7 +31,7 @@ exports.postAddProduct = (req, res, next) => {
         description: description,
       },
       errorMessage: 'Attached file is not an image',
-      validationErrors: [], 
+      validationErrors: [],
     });
   }
 
@@ -157,7 +157,7 @@ exports.postEditProduct = (req, res, next) => {
       product.price = updatedPrice;
       product.description = updatedDesc;
 
-      if (image {
+      if (image) {
         product.imageUrl = image.path;
       }
       return product.save().then((result) => {
